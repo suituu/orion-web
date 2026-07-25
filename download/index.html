@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+ORION Download
+</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+
+margin:0;
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"PingFang SC",
+"Microsoft YaHei",
+sans-serif;
+
+background:#f5f5f7;
+
+color:#1d1d1f;
+
+}
+
+
+.nav{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:20px 10%;
+
+background:white;
+
+}
+
+
+.nav a{
+
+margin-left:20px;
+
+text-decoration:none;
+
+color:#1d1d1f;
+
+}
+
+
+
+.hero{
+
+text-align:center;
+
+padding:110px 10% 70px;
+
+}
+
+
+.hero h1{
+
+font-size:56px;
+
+}
+
+
+.hero p{
+
+font-size:20px;
+
+color:#6e6e73;
+
+}
+
+
+
+.section{
+
+padding:70px 10%;
+
+text-align:center;
+
+}
+
+
+
+.card{
+
+background:white;
+
+max-width:500px;
+
+margin:30px auto;
+
+padding:40px;
+
+border-radius:25px;
+
+}
+
+
+
+.card p{
+
+color:#6e6e73;
+
+line-height:2;
+
+}
+
+
+
+.btn{
+
+display:inline-block;
+
+background:#111;
+
+color:white;
+
+padding:12px 30px;
+
+border-radius:30px;
+
+text-decoration:none;
+
+border:0;
+
+cursor:pointer;
+
+}
+
+
+
+input{
+
+width:90%;
+
+padding:14px;
+
+border-radius:20px;
+
+border:1px solid #ccc;
+
+font-size:16px;
+
+}
+
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="nav">
+
+<div>
+<b>ORION</b>
+</div>
+
+
+<div>
+
+<a href="/">首页</a>
+
+<a href="/products/">产品</a>
+
+<a href="/compare/">对比</a>
+
+<a href="/buy/">购买</a>
+
+</div>
+
+
+</div>
+
+
+
+<section class="hero">
+
+<h1>
+ORION Download
+</h1>
+
+
+<p>
+软件下载中心
+</p>
+
+
+<p>
+获取最新系统版本与使用资料
+</p>
+
+
+</section>
+
+
+
+<section class="section">
+
+
+<h2>
+Firmware
+</h2>
+
+
+
+<div class="card">
+
+
+<h2 id="fw-title">
+Loading Firmware...
+</h2>
+
+
+<p id="fw-channel">
+</p>
+
+
+<p id="fw-hardware">
+</p>
+
+
+<p id="fw-size">
+</p>
+
+
+<p id="fw-date">
+</p>
+
+
+<p id="fw-checksum">
+</p>
+
+
+
+<input
+id="license-key"
+placeholder="Enter License Key">
+
+
+<br><br>
+
+
+<button
+class="btn"
+onclick="downloadFirmware()">
+
+Download Firmware
+
+</button>
+
+
+<p id="download-result"></p>
+
+
+
+</div>
+
+
+</section>
+<section class="section">
+
+<h2>
+Firmware History
+</h2>
+
+
+<div id="fw-history">
+
+
+<div class="card">
+
+Loading firmware history...
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+Release Notes
+</h2>
+
+
+
+<div class="card">
+
+
+<h3>
+ORION OS
+</h3>
+
+
+<p>
+
+首次正式版本发布。
+
+</p>
+
+
+<p>
+
+优化系统稳定性，
+提升家庭娱乐体验。
+
+</p>
+
+
+<p>
+
+支持 OTA 在线升级。
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+User Guide
+</h2>
+
+
+
+<div class="card">
+
+
+<h2>
+使用说明
+</h2>
+
+
+<p>
+
+设备安装指南
+
+</p>
+
+
+<p>
+
+系统操作说明
+
+</p>
+
+
+<p>
+
+常见问题解决
+
+</p>
+
+
+
+<a class="btn" href="#">
+
+查看手册
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+OTA Update
+</h2>
+
+
+<div class="card">
+
+
+<p>
+
+设备连接网络后，
+可通过 ORION OTA 服务自动获取更新。
+
+</p>
+
+
+<p>
+
+保持系统长期稳定运行。
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<section class="section">
+
+
+<footer>
+
+
+<p>
+© 2026 ORION
+</p>
+
+
+<p>
+简单 · 稳定 · 纯净
+</p>
+
+
+<p>
+ICP备案号：
+
+<a href="https://beian.miit.gov.cn/" target="_blank">
+
+渝ICP备2026014573号
+
+</a>
+
+</p>
+
+
+
+</footer>
+
+
+</section>
+<script>
+
+let latestFirmwareVersion = "";
+
+
+
+/*
+ * Load latest firmware
+ */
+fetch("/api/public/firmware/latest")
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(!data.success){
+
+return;
+
+}
+
+
+
+const fw = data.firmware;
+
+
+
+latestFirmwareVersion = fw.version;
+
+
+
+document.getElementById(
+"fw-title"
+).innerHTML =
+"ORION OS " + fw.version;
+
+
+
+document.getElementById(
+"fw-channel"
+).innerHTML =
+"Channel: " + fw.channel;
+
+
+
+document.getElementById(
+"fw-hardware"
+).innerHTML =
+"Hardware: " + fw.hardware_version;
+
+
+
+document.getElementById(
+"fw-size"
+).innerHTML =
+"Size: " + fw.file_size + " KB";
+
+
+
+document.getElementById(
+"fw-date"
+).innerHTML =
+"Released: " + fw.published_at;
+
+
+
+document.getElementById(
+"fw-checksum"
+).innerHTML =
+"SHA256: " + (fw.checksum || "");
+
+
+
+
+
+})
+
+.catch(()=>{
+
+
+document.getElementById(
+"fw-title"
+).innerHTML =
+"Unable to load firmware";
+
+
+});
+
+
+
+
+
+
+/*
+ * Load firmware history
+ */
+
+fetch("/api/public/firmware/history")
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(!data.success){
+
+return;
+
+}
+
+
+
+const box =
+document.getElementById(
+"fw-history"
+);
+
+
+
+box.innerHTML="";
+
+
+
+data.firmwares.forEach(fw=>{
+
+
+let card =
+document.createElement("div");
+
+
+
+card.className="card";
+
+
+
+card.innerHTML = `
+
+
+<h2>
+ORION OS ${fw.version}
+</h2>
+
+
+<p>
+Channel:
+${fw.channel}
+</p>
+
+
+<p>
+Hardware:
+${fw.hardware_version}
+</p>
+
+
+<p>
+${fw.release_notes || ""}
+</p>
+
+
+<p>
+Released:
+${fw.published_at}
+</p>
+
+
+`;
+
+
+
+box.appendChild(card);
+
+
+
+});
+
+
+})
+
+.catch(()=>{
+
+
+document.getElementById(
+"fw-history"
+).innerHTML =
+"Unable to load history";
+
+
+});
+
+
+
+
+
+
+
+/*
+ * License firmware download
+ */
+
+function downloadFirmware(){
+
+
+
+const key =
+document.getElementById(
+"license-key"
+).value.trim();
+
+
+
+const result =
+document.getElementById(
+"download-result"
+);
+
+
+
+if(!key){
+
+
+result.innerHTML =
+"Please enter license key";
+
+
+return;
+
+
+}
+
+
+
+if(!latestFirmwareVersion){
+
+
+result.innerHTML =
+"Firmware information loading";
+
+
+return;
+
+
+}
+
+
+
+result.innerHTML =
+"Checking license...";
+
+
+
+
+fetch(
+
+"/api/public/download/"
++
+key
++
+"/"
++
+latestFirmwareVersion
+
+)
+
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(!data.success){
+
+
+result.innerHTML =
+data.message ||
+"Download failed";
+
+
+return;
+
+
+}
+
+
+
+result.innerHTML =
+"Starting download...";
+
+
+
+window.location.href =
+data.download_url;
+
+
+
+})
+
+
+.catch(()=>{
+
+
+result.innerHTML =
+"Server error";
+
+
+});
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>

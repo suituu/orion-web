@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+ORION Software
+</title>
+
+
+
+<style>
+
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+
+font-family:
+
+-apple-system,
+BlinkMacSystemFont,
+"PingFang SC",
+"Microsoft YaHei",
+sans-serif;
+
+
+background:#f5f5f7;
+
+color:#1d1d1f;
+
+}
+
+
+
+
+.nav{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:20px 10%;
+
+background:white;
+
+}
+
+
+
+
+.nav a{
+
+margin-left:20px;
+
+text-decoration:none;
+
+color:#1d1d1f;
+
+}
+
+
+
+
+
+.hero{
+
+text-align:center;
+
+padding:110px 10% 70px;
+
+}
+
+
+
+.hero h1{
+
+font-size:56px;
+
+}
+
+
+
+.hero p{
+
+font-size:20px;
+
+color:#6e6e73;
+
+}
+
+
+
+
+
+.section{
+
+padding:70px 10%;
+
+text-align:center;
+
+}
+
+
+
+
+
+.cards{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+
+
+
+
+.card{
+
+background:white;
+
+width:260px;
+
+padding:35px;
+
+border-radius:25px;
+
+}
+
+
+
+
+
+.card h3{
+
+font-size:24px;
+
+}
+
+
+
+.card p{
+
+color:#6e6e73;
+
+line-height:1.8;
+
+}
+
+
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+<div class="nav">
+
+
+<div>
+<b>ORION</b>
+</div>
+
+
+
+<div>
+
+<a href="/">首页</a>
+
+<a href="/products/">产品</a>
+
+<a href="/compare/">对比</a>
+
+<a href="/buy/">购买</a>
+<a href="/license/">授权</a>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<section class="hero">
+
+
+<h1>
+ORION Software
+</h1>
+
+
+<p>
+软件体验服务
+</p>
+
+
+<p>
+硬件之外，持续进化的系统体验
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+ORION OS
+</h2>
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<h3>
+简洁系统
+</h3>
+
+
+<p>
+
+针对家庭娱乐场景设计，
+减少复杂操作，
+快速进入使用状态。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+快速响应
+</h3>
+
+
+<p>
+
+优化系统资源，
+提升操作流畅度。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+家庭优化
+</h3>
+
+
+<p>
+
+适配电视、
+遥控器和家庭使用习惯。
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+OTA Updates
+</h2>
+
+<section class="section">
+
+<h2>
+Latest Firmware
+</h2>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<h3 id="fw-version">
+Loading...
+</h3>
+
+
+<p id="fw-info">
+
+Checking latest firmware
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+<section class="section">
+
+<h2>
+Firmware History
+</h2>
+
+
+<div class="cards" id="fw-history">
+
+
+<div class="card">
+
+<p>
+Loading firmware history...
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+<div class="cards">
+
+
+
+<div class="card">
+
+<h3>
+固件升级
+</h3>
+
+
+<p>
+
+通过 OTA 获取最新系统版本。
+
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h3>
+功能更新
+</h3>
+
+
+<p>
+
+持续增加新功能，
+优化用户体验。
+
+</p>
+
+</div>
+
+
+
+
+<div class="card">
+
+<h3>
+安全维护
+</h3>
+
+
+<p>
+
+长期维护系统稳定性。
+
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+<section class="section">
+
+
+<h2>
+System Optimization
+</h2>
+
+<section class="section">
+
+
+<h2>
+Downloads
+</h2>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+
+<h3>
+ORION Software
+</h3>
+
+
+<p>
+
+Official software tools
+and system resources.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+Installation Guide
+</h3>
+
+
+<p>
+
+Setup instructions
+and user documentation.
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+Release Notes
+</h3>
+
+
+<p>
+
+View system updates
+and release notes.
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<h3>
+AOSP 深度优化
+</h3>
+
+
+<p>
+
+针对 Android 开源系统进行优化，
+提升系统效率与使用体验。
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+Linux 系统优化
+</h3>
+
+
+<p>
+
+优化系统底层能力，
+提升稳定性和可维护性。
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h3>
+性能调校
+</h3>
+
+
+<p>
+
+根据硬件平台进行系统优化，
+发挥设备性能。
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+Clean Experience
+</h2>
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<h3>
+无广告体验
+</h3>
+
+
+<p>
+
+减少无效内容干扰，
+保持纯净使用环境。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+简洁界面
+</h3>
+
+
+<p>
+
+去除复杂入口，
+让家庭用户快速使用。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+隐私保护
+</h3>
+
+
+<p>
+
+减少不必要的数据收集，
+保护用户体验。
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<section class="section">
+
+
+<h2>
+Long-term Support
+</h2>
+
+
+<div class="cards">
+
+
+
+<div class="card">
+
+
+<h3>
+持续更新
+</h3>
+
+
+<p>
+
+长期提供系统优化和功能更新。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+用户反馈
+</h3>
+
+
+<p>
+
+根据真实使用场景持续改进。
+
+</p>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<h3>
+软件服务
+</h3>
+
+
+<p>
+
+不仅销售硬件，
+更提供长期软件体验服务。
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="section">
+
+
+<footer>
+
+<p>
+© 2026 ORION
+</p>
+
+
+<p>
+简单 · 稳定 · 纯净
+</p>
+
+
+<p>
+ICP备案号：
+<a href="https://beian.miit.gov.cn/" target="_blank">
+渝ICP备2026014573号
+</a>
+</p>
+
+
+</footer>
+
+</section>
+
+
+<script>
+
+fetch("/api/public/firmware/latest")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+if(data.success){
+
+
+const fw=data.firmware;
+
+
+document.getElementById(
+"fw-version"
+).innerHTML =
+"Version " + fw.version;
+
+
+document.getElementById(
+"fw-info"
+).innerHTML =
+
+`
+Channel:
+${fw.channel}
+<br>
+
+Hardware:
+${fw.hardware_version}
+
+<br>
+
+Release:
+${fw.release_notes || "Stable Release"}
+
+`;
+
+}
+
+
+})
+
+.catch(()=>{
+
+document.getElementById(
+"fw-info"
+).innerHTML =
+"Unable to load firmware";
+
+});
+</script>
+<script>
+
+fetch("/api/public/firmware/history")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+if(!data.success){
+
+return;
+
+}
+
+
+const box =
+document.getElementById("fw-history");
+
+
+box.innerHTML="";
+
+
+data.firmwares.forEach(fw=>{
+
+
+let card=document.createElement("div");
+
+
+card.className="card";
+
+
+let label =
+fw.channel==="stable"
+?
+"Stable Release"
+:
+"Beta Preview";
+
+
+card.innerHTML=`
+
+<h3>
+Version ${fw.version}
+</h3>
+
+<p>
+
+${label}
+
+<br>
+
+Hardware:
+${fw.hardware_version}
+
+<br>
+
+${fw.release_notes || ""}
+
+<br>
+
+${fw.published_at}
+
+</p>
+
+`;
+
+
+box.appendChild(card);
+
+
+});
+
+
+})
+
+
+.catch(()=>{
+
+
+document.getElementById(
+"fw-history"
+).innerHTML=
+
+"<p>Unable to load history</p>";
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>

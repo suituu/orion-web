@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ORION Order</title>
+
+
+<style>
+
+body{
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"PingFang SC",
+"Microsoft YaHei",
+sans-serif;
+
+text-align:center;
+
+padding:70px;
+
+color:#1d1d1f;
+
+}
+
+
+.card{
+
+max-width:500px;
+
+margin:auto;
+
+background:#f5f5f7;
+
+padding:40px;
+
+border-radius:25px;
+
+}
+
+
+h1{
+
+font-size:36px;
+
+}
+
+
+.info{
+
+text-align:left;
+
+margin-top:30px;
+
+line-height:2;
+
+}
+
+
+button{
+
+margin-top:30px;
+
+padding:14px 35px;
+
+border:none;
+
+border-radius:25px;
+
+background:#000;
+
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+<h1>
+ORION Order
+</h1>
+
+
+<div id="content">
+
+Creating order...
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+
+const product =
+params.get("product");
+
+
+
+let product_id;
+let amount;
+let product_name;
+
+
+
+if(product === "pro"){
+
+product_id = 2;
+amount = 599;
+product_name = "ORION Pro";
+
+}
+
+else{
+
+product_id = 1;
+amount = 299;
+product_name = "ORION Standard";
+
+}
+
+
+
+fetch("/api/orders/guest",
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+product_id:product_id,
+
+amount:amount
+
+})
+
+})
+
+
+.then(res=>res.json())
+
+
+.then(data=>{
+
+
+if(data.success){
+
+
+document.getElementById("content").innerHTML = `
+
+
+<div class="info">
+
+
+<p>
+产品：
+${product_name}
+</p>
+
+
+<p>
+金额：
+¥${amount}
+</p>
+
+
+<p>
+订单号：
+${data.order_no}
+</p>
+
+
+<p>
+订单ID：
+${data.order_id}
+</p>
+
+
+<p>
+状态：
+${data.status}
+</p>
+
+
+</div>
+
+
+<a href="/checkout/pay/?id=${data.order_id}">
+
+<button>
+Continue Payment
+</button>
+
+</a>
+
+
+`;
+
+
+
+}
+
+else{
+
+
+document.getElementById("content").innerHTML =
+"Create Order Failed";
+
+
+}
+
+
+})
+
+
+.catch(err=>{
+
+
+document.getElementById("content").innerHTML =
+"Server Error";
+
+
+});
+
+
+
+</script>
+
+
+</body>
+
+</html>
