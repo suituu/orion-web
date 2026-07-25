@@ -333,6 +333,46 @@ input {
         monospace;
 }
 
+.license-key-control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.license-key-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.license-key-actions {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 8px;
+}
+
+.license-key-button {
+    padding: 5px 11px;
+    border: 1px solid #d2d2d7;
+    border-radius: 999px;
+    background: #fff;
+    color: #1d1d1f;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.license-key-button:hover {
+    border-color: #86868b;
+    background: #f5f5f7;
+}
+
+.license-key-button:disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
 .empty-state {
     grid-column: 1 / -1;
     padding: 48px 20px;
@@ -661,6 +701,157 @@ function createStatus(status) {
     return element;
 }
 
+function maskLicenseKey(value) {
+    const key = String(value || "");
+
+    if (!key) {
+        return "—";
+    }
+
+    const parts = key.split("-");
+
+    if (parts.length >= 4) {
+        return parts
+            .map((part, index) => {
+                if (
+                    index >= 2 &&
+                    index < parts.length - 1
+                ) {
+                    return "•".repeat(
+                        Math.max(part.length, 4)
+                    );
+                }
+
+                return part;
+            })
+            .join("-");
+    }
+
+    if (key.length <= 8) {
+        return "•".repeat(key.length);
+    }
+
+    return (
+        key.slice(0, 4) +
+        "•".repeat(Math.max(key.length - 8, 4)) +
+        key.slice(-4)
+    );
+}
+
+function copyText(value) {
+    if (
+        navigator.clipboard &&
+        window.isSecureContext
+    ) {
+        return navigator.clipboard.writeText(value);
+    }
+
+    const textArea = document.createElement("textarea");
+
+    textArea.value = value;
+    textArea.setAttribute("readonly", "");
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+
+    document.body.appendChild(textArea);
+    textArea.select();
+
+    const copied = document.execCommand("copy");
+
+    textArea.remove();
+
+    if (!copied) {
+        return Promise.reject(
+            new Error("Copy failed")
+        );
+    }
+
+    return Promise.resolve();
+}
+
+function appendLicenseKeyDetail(container, value) {
+    const labelElement = document.createElement("div");
+    labelElement.className = "detail-label";
+    labelElement.textContent = "License Key";
+
+    const valueElement = document.createElement("div");
+    valueElement.className =
+        "detail-value license-key-control";
+
+    const fullKey =
+        value === null ||
+        value === undefined ||
+        value === ""
+            ? ""
+            : String(value);
+
+    if (!fullKey) {
+        valueElement.textContent = "—";
+        container.append(labelElement, valueElement);
+        return;
+    }
+
+    const maskedKey = maskLicenseKey(fullKey);
+
+    const keyText = document.createElement("span");
+    keyText.className =
+        "license-key license-key-text";
+    keyText.textContent = maskedKey;
+
+    const actions = document.createElement("span");
+    actions.className = "license-key-actions";
+
+    const toggleButton = document.createElement("button");
+    toggleButton.type = "button";
+    toggleButton.className = "license-key-button";
+    toggleButton.textContent = "显示";
+    toggleButton.setAttribute("aria-pressed", "false");
+
+    let revealed = false;
+
+    toggleButton.addEventListener("click", () => {
+        revealed = !revealed;
+
+        keyText.textContent = revealed
+            ? fullKey
+            : maskedKey;
+
+        toggleButton.textContent = revealed
+            ? "隐藏"
+            : "显示";
+
+        toggleButton.setAttribute(
+            "aria-pressed",
+            String(revealed)
+        );
+    });
+
+    const copyButton = document.createElement("button");
+    copyButton.type = "button";
+    copyButton.className = "license-key-button";
+    copyButton.textContent = "复制";
+
+    copyButton.addEventListener("click", async () => {
+        copyButton.disabled = true;
+
+        try {
+            await copyText(fullKey);
+            copyButton.textContent = "已复制";
+        } catch (error) {
+            copyButton.textContent = "复制失败";
+        }
+
+        window.setTimeout(() => {
+            copyButton.textContent = "复制";
+            copyButton.disabled = false;
+        }, 1500);
+    });
+
+    actions.append(toggleButton, copyButton);
+    valueElement.append(keyText, actions);
+    container.append(labelElement, valueElement);
+}
+
 function appendDetail(container, label, value, className = "") {
     const labelElement = document.createElement("div");
     labelElement.className = "detail-label";
@@ -733,11 +924,9 @@ function renderLicenses(licenses) {
         const details = document.createElement("div");
         details.className = "details";
 
-        appendDetail(
+        appendLicenseKeyDetail(
             details,
-            "License Key",
-            license.license_key,
-            "license-key"
+            license.license_key
         );
         appendDetail(details, "设备编号", license.device_id);
         appendDetail(details, "激活次数", license.activated_count ?? 0);
