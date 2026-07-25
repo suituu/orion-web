@@ -261,7 +261,34 @@ input {
 .item-card {
     padding: 26px;
 }
+.order-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
 
+.order-card:hover {
+    transform: translateY(-2px);
+    border-color: #c7c7cc;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+}
+
+.order-card:focus-visible {
+    outline: 3px solid rgba(0, 113, 227, 0.3);
+    outline-offset: 3px;
+}
+
+.order-card-action {
+    margin-top: 20px;
+    color: #0071e3;
+    font-size: 14px;
+    font-weight: 600;
+}
 .item-title-row {
     display: flex;
     justify-content: space-between;
@@ -946,9 +973,15 @@ function renderOrders(orders) {
     }
 
     for (const order of orders) {
-        const card = document.createElement("article");
-        card.className = "panel item-card";
+        const card = document.createElement("a");
+        card.className = "panel item-card order-card";
+        card.href =
+            `/account/order/?id=${encodeURIComponent(order.id)}`;
 
+        card.setAttribute(
+            "aria-label",
+            `查看订单 ${order.order_no || order.id}`
+        );
         const titleRow = document.createElement("div");
         titleRow.className = "item-title-row";
 
@@ -969,8 +1002,11 @@ function renderOrders(orders) {
         appendDetail(details, "订单号", order.order_no);
         appendDetail(details, "金额", formatMoney(order.amount));
         appendDetail(details, "创建时间", formatDate(order.created_at));
+        const action = document.createElement("div");
+        action.className = "order-card-action";
+        action.textContent = "查看详情 →";
 
-        card.append(titleRow, details);
+        card.append(titleRow, details, action);
         list.appendChild(card);
     }
 }
