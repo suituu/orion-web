@@ -23,10 +23,66 @@ sans-serif;
 
 text-align:center;
 
-padding:80px 20px;
+margin:0;
+
+padding:0;
 
 color:#1d1d1f;
 
+}
+
+
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 10%;
+background:rgba(255,255,255,.82);
+border-bottom:1px solid rgba(0,0,0,.06);
+backdrop-filter:blur(20px);
+text-align:left;
+}
+
+.nav-logo{
+color:#1d1d1f;
+font-size:24px;
+font-weight:700;
+text-decoration:none;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:26px;
+}
+
+.nav-links a{
+color:#333;
+font-size:14px;
+text-decoration:none;
+}
+
+.nav-links a:hover{
+color:#0071e3;
+}
+
+.page{
+padding:80px 20px;
+}
+
+@media (max-width:640px){
+.nav{
+padding:16px 20px;
+}
+
+.nav-links{
+gap:14px;
+}
+
+.nav-links a:nth-child(2),
+.nav-links a:nth-child(3){
+display:none;
+}
 }
 
 
@@ -145,6 +201,19 @@ color:#666;
 
 <body>
 
+<div class="nav">
+<a class="nav-logo" href="/">ORION</a>
+
+<div class="nav-links">
+<a href="/">首页</a>
+<a href="/products/">产品</a>
+<a href="/buy/">购买</a>
+<a href="/account/">用户中心</a>
+</div>
+</div>
+
+<main class="page">
+
 
 <div class="card">
 
@@ -177,7 +246,7 @@ Check License
 
 </div>
 
-
+</main>
 
 <script>
 
