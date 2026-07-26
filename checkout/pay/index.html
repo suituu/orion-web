@@ -117,231 +117,57 @@ Loading...
 
 
 <script>
-
-
 const params =
-new URLSearchParams(
-window.location.search
-);
-
+    new URLSearchParams(
+        window.location.search
+    );
 
 const orderId =
-params.get("id");
-
-
-
-if(!orderId){
-
-document.getElementById("content").innerHTML =
-"No order id";
-
-throw new Error("No order");
-
-}
-
-
-
-let paymentNo = "";
-
-
-
-// 创建支付
-
-fetch("/api/checkout/payment/create",
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-order_id:Number(orderId)
-
-})
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-if(!data.success){
-
-throw new Error(
-"Payment create failed"
-);
-
-}
-
-
-const payment=data.payment;
-
-
-paymentNo =
-payment.payment_no;
-
-
-
-document.getElementById("content").innerHTML = `
-
-
-<div class="info">
-
-
-<p>
-Payment No:
-${payment.payment_no}
-</p>
-
-
-<p>
-Amount:
-¥${payment.amount}
-</p>
-
-
-<p>
-Status:
-${payment.status}
-</p>
-
-
-</div>
-
-
-<button onclick="payNow()">
-
-Complete Payment
-
-</button>
-
-
-`;
-
-
-
-})
-
-
-.catch(err=>{
-
-
-document.getElementById("content").innerHTML =
-"Payment Error";
-
-
-});
-
-
-
-
-
-function payNow(){
-
-
-fetch("/api/checkout/payment/mock-success",
-{
-
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-
-body:JSON.stringify({
-
-payment_no:paymentNo
-
-})
-
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-if(data.success){
-
-
-const result=data.result;
-
-
-document.getElementById("content").innerHTML = `
-
-
-<h2>
-Payment Successful
-</h2>
-
-
-<div class="info">
-
-
-<p>
-Order:
-${result.order_no}
-</p>
-
-
-<p>
-Status:
-${result.order_status}
-</p>
-
-
-</div>
-
-
-<hr>
-
-
-<p>
-Your ORION License
-</p>
-
-
-<div class="license">
-
-${result.license_key}
-
-</div>
-
-
-<br>
-
-
-<a href="/">
-
-Back Home
-
-</a>
-
-
-`;
-
-
-}
-
-
-});
-
-
+    params.get("id");
+
+const content =
+    document.getElementById("content");
+
+if (
+    !orderId ||
+    !/^[1-9]\d*$/.test(orderId)
+) {
+    content.textContent =
+        "订单编号无效";
+} else {
+    const orderUrl =
+        "/account/order/?id=" +
+        encodeURIComponent(orderId);
+
+    content.innerHTML = `
+        <div class="info">
+            <p>
+                <strong>订单编号：</strong>
+                ${orderId}
+            </p>
+
+            <p>
+                <strong>支付状态：</strong>
+                支付通道正在接入
+            </p>
+
+            <p>
+                当前暂不可在线付款，请稍后再试。
+            </p>
+        </div>
+
+        <p>
+            <a href="${orderUrl}">
+                查看订单
+            </a>
+        </p>
+
+        <p>
+            <a href="/account/">
+                返回用户中心
+            </a>
+        </p>
+    `;
 }
 
 
