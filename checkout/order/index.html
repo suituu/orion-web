@@ -178,6 +178,40 @@ amount:amount
 
 if(data.success){
 
+const orderId =
+String(
+data.order_id || ""
+);
+
+const orderIdNumber =
+Number(orderId);
+
+const guestAccessToken =
+String(
+data.guest_access_token || ""
+).trim();
+
+
+if(
+!/^[1-9]\d*$/.test(orderId) ||
+!Number.isSafeInteger(orderIdNumber) ||
+!/^[a-f0-9]{64}$/.test(
+guestAccessToken
+)
+){
+
+throw new Error(
+"invalid guest order access"
+);
+
+}
+
+
+sessionStorage.setItem(
+"orion_guest_access_token_" + orderId,
+guestAccessToken
+);
+
 
 document.getElementById("content").innerHTML = `
 
@@ -205,7 +239,7 @@ ${data.order_no}
 
 <p>
 订单ID：
-${data.order_id}
+${orderId}
 </p>
 
 
@@ -218,7 +252,7 @@ ${data.status}
 </div>
 
 
-<a href="/checkout/pay/?id=${data.order_id}">
+<a href="/checkout/pay/?id=${encodeURIComponent(orderId)}">
 
 <button>
 Continue Payment
@@ -228,7 +262,6 @@ Continue Payment
 
 
 `;
-
 
 
 }
