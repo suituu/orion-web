@@ -170,29 +170,80 @@ window.location.search
 
 
 const orderId =
-params.get("id");
+String(
+params.get("id") || ""
+);
+
+const orderIdNumber =
+Number(orderId);
 
 
-
-if(!orderId){
+if(
+!/^[1-9]\d*$/.test(orderId) ||
+!Number.isSafeInteger(orderIdNumber)
+){
 
 document.getElementById("content").innerHTML =
-"No order id";
+"Invalid order id";
 
-throw new Error("missing id");
+throw new Error("invalid id");
 
 }
 
 
+const guestAccessToken =
+String(
+sessionStorage.getItem(
+"orion_guest_access_token_" + orderId
+) || ""
+).trim();
+
+
+if(
+!/^[a-f0-9]{64}$/.test(
+guestAccessToken
+)
+){
+
+document.getElementById("content").innerHTML =
+"Unable to access order information";
+
+throw new Error(
+"missing guest access token"
+);
+
+}
+
+
+const encodedOrderId =
+encodeURIComponent(orderId);
+
+const requestOptions = {
+
+headers:{
+
+"X-Guest-Access-Token":
+guestAccessToken
+
+}
+
+};
 
 
 Promise.all([
 
-fetch("/api/orders/guest/" + orderId)
+fetch(
+"/api/orders/guest/" + encodedOrderId,
+requestOptions
+)
 .then(res=>res.json()),
 
 
-fetch("/api/public/license/order/" + orderId)
+fetch(
+"/api/public/license/order/" +
+encodedOrderId,
+requestOptions
+)
 .then(res=>res.json())
 
 ])
