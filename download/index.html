@@ -514,42 +514,42 @@ latestFirmwareVersion = fw.version;
 
 document.getElementById(
 "fw-title"
-).innerHTML =
+).textContent =
 "ORION OS " + fw.version;
 
 
 
 document.getElementById(
 "fw-channel"
-).innerHTML =
+).textContent =
 "Channel: " + fw.channel;
 
 
 
 document.getElementById(
 "fw-hardware"
-).innerHTML =
+).textContent =
 "Hardware: " + fw.hardware_version;
 
 
 
 document.getElementById(
 "fw-size"
-).innerHTML =
+).textContent =
 "Size: " + fw.file_size + " KB";
 
 
 
 document.getElementById(
 "fw-date"
-).innerHTML =
+).textContent =
 "Released: " + fw.published_at;
 
 
 
 document.getElementById(
 "fw-checksum"
-).innerHTML =
+).textContent =
 "SHA256: " + (fw.checksum || "");
 
 
@@ -563,7 +563,7 @@ document.getElementById(
 
 document.getElementById(
 "fw-title"
-).innerHTML =
+).textContent =
 "Unable to load firmware";
 
 
@@ -602,8 +602,7 @@ document.getElementById(
 
 
 
-box.innerHTML="";
-
+box.replaceChildren();
 
 
 data.firmwares.forEach(fw=>{
@@ -618,40 +617,50 @@ card.className="card";
 
 
 
-card.innerHTML = `
+const title =
+document.createElement("h2");
+
+title.textContent =
+"ORION OS " + fw.version;
 
 
-<h2>
-ORION OS ${fw.version}
-</h2>
+const channelText =
+document.createElement("p");
+
+channelText.textContent =
+"Channel: " + fw.channel;
 
 
-<p>
-Channel:
-${fw.channel}
-</p>
+const hardwareText =
+document.createElement("p");
+
+hardwareText.textContent =
+"Hardware: " + fw.hardware_version;
 
 
-<p>
-Hardware:
-${fw.hardware_version}
-</p>
+const releaseNotesText =
+document.createElement("p");
+
+releaseNotesText.textContent =
+fw.release_notes || "";
 
 
-<p>
-${fw.release_notes || ""}
-</p>
+const releasedText =
+document.createElement("p");
+
+releasedText.textContent =
+"Released: " + fw.published_at;
 
 
-<p>
-Released:
-${fw.published_at}
-</p>
+card.appendChild(title);
 
+card.appendChild(channelText);
 
-`;
+card.appendChild(hardwareText);
 
+card.appendChild(releaseNotesText);
 
+card.appendChild(releasedText);
 
 box.appendChild(card);
 
@@ -758,7 +767,7 @@ latestFirmwareVersion
 if(!data.success){
 
 
-result.innerHTML =
+result.textContent =
 data.message ||
 "Download failed";
 
