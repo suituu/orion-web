@@ -812,7 +812,6 @@ ICP备案号：
 
 </section>
 
-
 <script>
 
 fetch("/api/public/firmware/latest")
@@ -821,40 +820,50 @@ fetch("/api/public/firmware/latest")
 
 .then(data=>{
 
-
 if(data.success){
-
 
 const fw=data.firmware;
 
-
 document.getElementById(
 "fw-version"
-).innerHTML =
+).textContent =
 "Version " + fw.version;
 
-
+const info =
 document.getElementById(
 "fw-info"
-).innerHTML =
+);
 
-`
-Channel:
-${fw.channel}
-<br>
+info.replaceChildren();
 
-Hardware:
-${fw.hardware_version}
+info.appendChild(
+document.createTextNode(
+"Channel: " + fw.channel
+)
+);
 
-<br>
+info.appendChild(
+document.createElement("br")
+);
 
-Release:
-${fw.release_notes || "Stable Release"}
+info.appendChild(
+document.createTextNode(
+"Hardware: " + fw.hardware_version
+)
+);
 
-`;
+info.appendChild(
+document.createElement("br")
+);
+
+info.appendChild(
+document.createTextNode(
+"Release: " +
+(fw.release_notes || "Stable Release")
+)
+);
 
 }
-
 
 })
 
@@ -866,7 +875,9 @@ document.getElementById(
 "Unable to load firmware";
 
 });
+
 </script>
+
 <script>
 
 fetch("/api/public/firmware/history")
@@ -875,29 +886,22 @@ fetch("/api/public/firmware/history")
 
 .then(data=>{
 
-
 if(!data.success){
 
 return;
 
 }
 
-
 const box =
 document.getElementById("fw-history");
 
-
-box.innerHTML="";
-
+box.replaceChildren();
 
 data.firmwares.forEach(fw=>{
 
-
 let card=document.createElement("div");
 
-
 card.className="card";
-
 
 let label =
 fw.channel==="stable"
@@ -906,46 +910,62 @@ fw.channel==="stable"
 :
 "Beta Preview";
 
+const title =
+document.createElement("h3");
 
-card.innerHTML=`
+title.textContent =
+"Version " + fw.version;
 
-<h3>
-Version ${fw.version}
-</h3>
+const details =
+document.createElement("p");
 
-<p>
+details.appendChild(
+document.createTextNode(
+label
+)
+);
 
-${label}
+details.appendChild(
+document.createElement("br")
+);
 
-<br>
+details.appendChild(
+document.createTextNode(
+"Hardware: " + fw.hardware_version
+)
+);
 
-Hardware:
-${fw.hardware_version}
+details.appendChild(
+document.createElement("br")
+);
 
-<br>
+details.appendChild(
+document.createTextNode(
+fw.release_notes || ""
+)
+);
 
-${fw.release_notes || ""}
+details.appendChild(
+document.createElement("br")
+);
 
-<br>
+details.appendChild(
+document.createTextNode(
+fw.published_at
+)
+);
 
-${fw.published_at}
+card.appendChild(title);
 
-</p>
-
-`;
-
+card.appendChild(details);
 
 box.appendChild(card);
 
-
 });
-
 
 })
 
-
 .catch(()=>{
-
 
 document.getElementById(
 "fw-history"
@@ -953,12 +973,9 @@ document.getElementById(
 
 "<p>Unable to load history</p>";
 
-
 });
 
-
 </script>
-
 
 </body>
 
