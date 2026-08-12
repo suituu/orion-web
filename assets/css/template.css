@@ -1,0 +1,47 @@
+body{
+    margin:0;
+    font-family:-apple-system, BlinkMacSystemFont, "PingFang SC";
+    background:#F5F5F7;
+    color:#1D1D1F;
+}
+
+/* 顶部导航 */
+.nav{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 10%;
+    background:rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+}
+
+.nav a{
+    margin-left:15px;
+    text-decoration:none;
+    color:#1D1D1F;
+}
+
+/* 主体 */
+.container{
+    padding:120px 10%;
+    text-align:center;
+}
+
+h1{
+    font-size:60px;
+    margin:0;
+}
+
+p{
+    color:#6E6E73;
+    font-size:18px;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
+    background:#111;
+    color:#fff;
+    border-radius:12px;
+    text-decoration:none;
+}
