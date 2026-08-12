@@ -7,16 +7,13 @@ const product =
     params.get("product");
 
 let product_id;
-let amount;
 let product_name;
 
 if (product === "pro") {
     product_id = 2;
-    amount = 599;
     product_name = "ORION Pro";
 } else {
     product_id = 1;
-    amount = 299;
     product_name = "ORION Standard";
 }
 
@@ -34,8 +31,7 @@ fetch(
         },
 
         body: JSON.stringify({
-            product_id: product_id,
-            amount: amount
+            product_id: product_id
         })
     }
 )
@@ -118,7 +114,11 @@ fetch(
 
         appendInfoRow(
             "金额：",
-            "¥" + String(amount)
+            data.amount === null ||
+            data.amount === undefined ||
+            data.amount === ""
+                ? "Unknown"
+                : "¥" + String(data.amount)
         );
 
         appendInfoRow(
