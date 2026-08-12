@@ -1,22 +1,3 @@
-# Historical HTML snapshots
-/account/index.backup-*.html
-/checkout/index.v1.html
-/checkout/order/index.v1.html
-/checkout/pay/index.v1.html
-/checkout/pay/index.v2.html
-/download/index.backup.html
-/index.backup.html
-/license/index.bak.html
-/products/index.backup.html
-/products/standard.backup.html
-/products/standard.before.v2.html
-/products/standard.v1.html
-/products/standard.v2.backup.html
-
-# Simulated data files
-/api/status.json
-/data/order.json
-
 # Temporary and editor files
 *.log
 *.swp
