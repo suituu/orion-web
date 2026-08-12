@@ -12,84 +12,7 @@ ORION Payment
 </title>
 
 
-<style>
-
-body{
-
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"PingFang SC",
-"Microsoft YaHei",
-sans-serif;
-
-text-align:center;
-
-padding:80px;
-
-color:#1d1d1f;
-
-}
-
-
-.card{
-
-background:#f5f5f7;
-
-padding:40px;
-
-border-radius:25px;
-
-max-width:500px;
-
-margin:auto;
-
-}
-
-
-.info{
-
-text-align:left;
-
-line-height:2;
-
-margin-top:30px;
-
-}
-
-
-button{
-
-margin-top:30px;
-
-padding:14px 35px;
-
-border:none;
-
-border-radius:30px;
-
-background:#000;
-
-color:white;
-
-font-size:16px;
-
-cursor:pointer;
-
-}
-
-
-.license{
-
-font-size:22px;
-
-font-weight:bold;
-
-margin-top:20px;
-
-}
-
-</style>
+<link rel="stylesheet" href="/assets/css/checkout-pay.css">
 
 </head>
 
@@ -116,62 +39,7 @@ Loading...
 
 
 
-<script>
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const orderId =
-    params.get("id");
-
-const content =
-    document.getElementById("content");
-
-if (
-    !orderId ||
-    !/^[1-9]\d*$/.test(orderId)
-) {
-    content.textContent =
-        "订单编号无效";
-} else {
-    const orderUrl =
-        "/account/order/?id=" +
-        encodeURIComponent(orderId);
-
-    content.innerHTML = `
-        <div class="info">
-            <p>
-                <strong>订单编号：</strong>
-                ${orderId}
-            </p>
-
-            <p>
-                <strong>支付状态：</strong>
-                支付通道正在接入
-            </p>
-
-            <p>
-                当前暂不可在线付款，请稍后再试。
-            </p>
-        </div>
-
-        <p>
-            <a href="${orderUrl}">
-                查看订单
-            </a>
-        </p>
-
-        <p>
-            <a href="/account/">
-                返回用户中心
-            </a>
-        </p>
-    `;
-}
-
-
-</script>
+<script src="/assets/js/checkout-pay.js"></script>
 
 
 </body>
