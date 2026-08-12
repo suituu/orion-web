@@ -1,174 +1,164 @@
 const params =
-new URLSearchParams(
-window.location.search
-);
-
+    new URLSearchParams(
+        window.location.search
+    );
 
 const product =
-params.get("product");
-
-
+    params.get("product");
 
 let product_id;
 let amount;
 let product_name;
 
-
-
-if(product === "pro"){
-
-product_id = 2;
-amount = 599;
-product_name = "ORION Pro";
-
+if (product === "pro") {
+    product_id = 2;
+    amount = 599;
+    product_name = "ORION Pro";
+} else {
+    product_id = 1;
+    amount = 299;
+    product_name = "ORION Standard";
 }
 
-else{
+const content =
+    document.getElementById("content");
 
-product_id = 1;
-amount = 299;
-product_name = "ORION Standard";
+fetch(
+    "/api/orders/guest",
+    {
+        method: "POST",
 
-}
+        headers: {
+            "Content-Type":
+                "application/json"
+        },
 
-
-
-fetch("/api/orders/guest",
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify({
-
-product_id:product_id,
-
-amount:amount
-
-})
-
-})
-
-
-.then(res=>res.json())
-
-
-.then(data=>{
-
-
-if(data.success){
-
-const orderId =
-String(
-data.order_id || ""
-);
-
-const orderIdNumber =
-Number(orderId);
-
-const guestAccessToken =
-String(
-data.guest_access_token || ""
-).trim();
-
-
-if(
-!/^[1-9]\d*$/.test(orderId) ||
-!Number.isSafeInteger(orderIdNumber) ||
-!/^[a-f0-9]{64}$/.test(
-guestAccessToken
+        body: JSON.stringify({
+            product_id: product_id,
+            amount: amount
+        })
+    }
 )
-){
+    .then((res) => res.json())
+    .then((data) => {
+        if (!data.success) {
+            content.textContent =
+                "Create Order Failed";
 
-throw new Error(
-"invalid guest order access"
-);
+            return;
+        }
 
-}
+        const orderId =
+            String(
+                data.order_id || ""
+            );
 
+        const orderIdNumber =
+            Number(orderId);
 
-sessionStorage.setItem(
-"orion_guest_access_token_" + orderId,
-guestAccessToken
-);
+        const guestAccessToken =
+            String(
+                data.guest_access_token || ""
+            ).trim();
 
+        if (
+            !/^[1-9]\d*$/.test(orderId) ||
+            !Number.isSafeInteger(
+                orderIdNumber
+            ) ||
+            !/^[a-f0-9]{64}$/.test(
+                guestAccessToken
+            )
+        ) {
+            throw new Error(
+                "invalid guest order access"
+            );
+        }
 
-document.getElementById("content").innerHTML = `
+        sessionStorage.setItem(
+            "orion_guest_access_token_" +
+                orderId,
+            guestAccessToken
+        );
 
+        const info =
+            document.createElement("div");
 
-<div class="info">
+        info.className =
+            "info";
 
+        function appendInfoRow(
+            label,
+            value
+        ) {
+            const row =
+                document.createElement("p");
 
-<p>
-产品：
-${product_name}
-</p>
+            row.appendChild(
+                document.createTextNode(
+                    label
+                )
+            );
 
+            row.appendChild(
+                document.createTextNode(
+                    String(value)
+                )
+            );
 
-<p>
-金额：
-¥${amount}
-</p>
+            info.appendChild(
+                row
+            );
+        }
 
+        appendInfoRow(
+            "产品：",
+            product_name
+        );
 
-<p>
-订单号：
-${data.order_no}
-</p>
+        appendInfoRow(
+            "金额：",
+            "¥" + String(amount)
+        );
 
+        appendInfoRow(
+            "订单号：",
+            data.order_no
+        );
 
-<p>
-订单ID：
-${orderId}
-</p>
+        appendInfoRow(
+            "订单ID：",
+            orderId
+        );
 
+        appendInfoRow(
+            "状态：",
+            data.status
+        );
 
-<p>
-状态：
-${data.status}
-</p>
+        const paymentLink =
+            document.createElement("a");
 
+        paymentLink.href =
+            "/checkout/pay/?id=" +
+            encodeURIComponent(orderId);
 
-</div>
+        const paymentButton =
+            document.createElement("button");
 
+        paymentButton.textContent =
+            "Continue Payment";
 
-<a href="/checkout/pay/?id=${encodeURIComponent(orderId)}">
+        paymentLink.appendChild(
+            paymentButton
+        );
 
-<button>
-Continue Payment
-</button>
-
-</a>
-
-
-`;
-
-
-}
-
-else{
-
-
-document.getElementById("content").innerHTML =
-"Create Order Failed";
-
-
-}
-
-
-})
-
-
-.catch(err=>{
-
-
-document.getElementById("content").innerHTML =
-"Server Error";
-
-
-});
+        content.replaceChildren(
+            info,
+            paymentLink
+        );
+    })
+    .catch(() => {
+        content.textContent =
+            "Server Error";
+    });
